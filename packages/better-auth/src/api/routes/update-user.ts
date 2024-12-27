@@ -98,8 +98,8 @@ export const updateUser = <O extends BetterAuthOptions>() =>
 				rest,
 				"update",
 			);
-			const user = await ctx.context.internalAdapter.updateUserByEmail(
-				session.user.email,
+			const user = await ctx.context.internalAdapter.updateUser(
+				session.user.id,
 				{
 					name,
 					image,
@@ -580,8 +580,8 @@ export const changeEmail = createAuthEndpoint(
 		 * If the email is not verified, we can update the email
 		 */
 		if (ctx.context.session.user.emailVerified !== true) {
-			const updatedUser = await ctx.context.internalAdapter.updateUserByEmail(
-				ctx.context.session.user.email,
+			const updatedUser = await ctx.context.internalAdapter.updateUser(
+				ctx.context.session.user.id,
 				{
 					email: ctx.body.newEmail,
 				},
