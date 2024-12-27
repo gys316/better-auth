@@ -282,14 +282,15 @@ export const admin = <O extends AdminOptions>(options?: O) => {
 					},
 				},
 				async (ctx) => {
-					const existUser = await ctx.context.internalAdapter.findUserByEmail(
-						ctx.body.email,
-					);
-					if (existUser) {
-						throw new APIError("BAD_REQUEST", {
-							message: ERROR_CODES.USER_ALREADY_EXISTS,
-						});
-					}
+					// 임시로 이메일 중복 처리 제거
+					// const existUser = await ctx.context.internalAdapter.findUserByEmail(
+					// 	ctx.body.email,
+					// );
+					// if (existUser) {
+					// 	throw new APIError("BAD_REQUEST", {
+					// 		message: ERROR_CODES.USER_ALREADY_EXISTS,
+					// 	});
+					// }
 					const user =
 						await ctx.context.internalAdapter.createUser<UserWithRole>({
 							email: ctx.body.email,

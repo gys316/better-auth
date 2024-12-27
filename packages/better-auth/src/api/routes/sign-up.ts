@@ -135,13 +135,14 @@ export const signUpEmail = <O extends BetterAuthOptions>() =>
 					message: BASE_ERROR_CODES.PASSWORD_TOO_LONG,
 				});
 			}
-			const dbUser = await ctx.context.internalAdapter.findUserByEmail(email);
-			if (dbUser?.user) {
-				ctx.context.logger.info(`Sign-up attempt for existing email: ${email}`);
-				throw new APIError("UNPROCESSABLE_ENTITY", {
-					message: BASE_ERROR_CODES.USER_ALREADY_EXISTS,
-				});
-			}
+			// 임시로 이메일 중복 처리 제거
+			// const dbUser = await ctx.context.internalAdapter.findUserByEmail(email);
+			// if (dbUser?.user) {
+			// 	ctx.context.logger.info(`Sign-up attempt for existing email: ${email}`);
+			// 	throw new APIError("UNPROCESSABLE_ENTITY", {
+			// 		message: BASE_ERROR_CODES.USER_ALREADY_EXISTS,
+			// 	});
+			// }
 
 			const additionalData = parseUserInput(
 				ctx.context.options,
